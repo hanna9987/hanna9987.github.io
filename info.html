@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>영화 예매 사이트</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        header {
+            background-color: #202020;
+            color: white;
+            padding: 20px 40px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 10px 20px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .top-bar .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .top-bar .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .top-bar .logo span {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .top-bar .member-menu {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+
+        .top-bar .member-menu li {
+            display: flex;
+            align-items: center;
+        }
+
+        .top-bar .member-menu li a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-size: 14px;
+        }
+
+        .top-bar .member-menu img {
+            height: 18px;
+            margin-right: 5px;
+        }
+
+        nav {
+            background-color: #34495e;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 14px 20px;
+            display: block;
+            transition: background 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #1abc9c;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .movie-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .movie-card {
+            display: flex;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid #ddd;
+            align-items: flex-start;
+        }
+
+        .movie-poster {
+            position: relative;
+        }
+
+        .movie-poster img {
+            width: 160px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .rank {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #e50914;
+            color: white;
+            padding: 5px 10px;
+            font-weight: bold;
+            border-radius: 0 0 8px 0;
+        }
+
+        .age18 {
+            position: absolute;
+            bottom: 8px;
+            left: 8px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 2px 6px;
+            font-size: 13px;
+            border-radius: 4px;
+        }
+
+        .screentype {
+            margin-top: 8px;
+        }
+
+        .screentype a {
+            background-color: #0077cc;
+            color: white;
+            padding: 3px 8px;
+            font-size: 12px;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+
+        .movie-info {
+            flex: 1;
+        }
+
+        .movie-info .title {
+            font-size: 24px;
+            margin: 0 0 10px;
+        }
+
+        .movie-info .title a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        .score-info {
+            margin-bottom: 8px;
+        }
+
+        .booking-rate {
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        .egg-gage {
+            display: inline-block;
+            background: #ffcc00;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .release-date {
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #777;
+        }
+
+        .btn-reserve {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #e50914;
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .btn-reserve:hover {
+            background: #c40812;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="logo">
+            <a href="/"><img src="https://cdn-icons-png.flaticon.com/512/744/744922.png" alt="로고" /></a>
+            <a href="index.html" style="text-decoration: none; color: #2c3e50; font-size: 20px; font-weight: bold;">DEEP DIVE CINEMA</a>
+        </div>
+        <ul class="member-menu">
+            <li><a href="#"><img src="https://img.cgv.co.kr/R2014/images/common/ico/loginPassword.png" alt="">로그인</a></li>
+            <li><a href="#"><img src="https://img.cgv.co.kr/R2014/images/common/ico/loginJoin.png" alt="">회원가입</a></li>
+            <li><a href="#"><img src="https://img.cgv.co.kr/R2014/images/common/ico/loginMember.png" alt="">MY</a></li>
+            <li><a href="#"><img src="https://img.cgv.co.kr/R2014/images/common/ico/loginCustomer.png" alt="">고객센터</a></li>
+        </ul>
+    </div>
+
+    <nav>
+        <a href="info.html">영화</a>
+        <a href="#">극장</a>
+        <a href="reserve.html">예매</a>
+        <a href="#">스토어</a>
+        <a href="#">이벤트</a>
+        <a href="#">혜택</a>
+    </nav>
+
+    <header>
+        🎬 무비차트
+    </header>
+
+    <div class="container">
+        <ul class="movie-list">
+            <!-- 영화 카드 1 -->
+            <li class="movie-card">
+                <div class="movie-poster">
+                    <strong class="rank">No.1</strong>
+                    <a href="/movies/detail-view/?midx=89454">
+                        <img src="https://img.cgv.co.kr/Movie/Thumbnail/Poster/000089/89454/89454_320.jpg" alt="야당 포스터" onerror="errorImage(this)">
+                    </a>
+                    <div class="screentype">
+                        <a href="#" title="IMAX 상세정보 바로가기">IMAX</a>
+                    </div>
+                </div>
+                <div class="movie-info">
+                    <h3 class="title">
+                        <a href="/movies/detail-view/?midx=89454">야당</a>
+                    </h3>
+                    <div class="score-info">
+                        <span class="booking-rate">예매율 <strong>35.4%</strong></span>
+                        <div class="egg-gage">96%</div>
+                    </div>
+                    <div class="release-date">
+                        개봉일: 2025.04.16
+                    </div>
+                    <a class="btn-reserve" href="/ticket/?MOVIE_CD=20040389&MOVIE_CD_GROUP=20040389">예매하기</a>
+                </div>
+            </li>
+            <!-- 영화 카드 2 -->
+            <li>
+                <div class="box-image">
+                    <strong class="rank">No.2</strong>	
+                    <a href="/movies/detail-view/?midx=89548">
+                        <span class="thumb-image">
+                            <img src="https://img.cgv.co.kr/Movie/Thumbnail/Poster/000089/89548/89548_320.jpg" alt="거룩한 밤: 데몬 헌터스 포스터" onerror="errorImage(this)">
+                            <!-- 영상물 등급 노출 변경 2022.08.24 -->
+                            <i class="cgvIcon etc age15">15</i>
+                            <!-- <span class="ico-grade 15">15</span> -->
+                        </span>
+                        
+                    </a>
+                    <span class="screentype">
+                        
+                    </span>
+                </div>
+                
+                <div class="box-contents">
+                    <a href="/movies/detail-view/?midx=89548">
+                        <strong class="title">거룩한 밤: 데몬 헌터스</strong>
+                    </a>
+
+                    <div class="score">
+                        <strong class="percent">예매율<span>13.6%</span></strong>
+                        <!-- 2020.05.07 개봉전 프리에그 노출, 개봉후 골든에그지수 노출변경 (적용 범위1~ 3위)-->
+                        <div class="egg-gage small">
+                                        <span class="sprite_preegg default"></span>
+                                        <span class="percent">99%</span>
+                                    </div>
+                    </div>
+
+                    <span class="txt-info">
+                        <strong>
+                            2025.04.30 
+                            <span>개봉</span>
+                            <em class="dday">D-13</em>
+                        </strong>
+                    </span>
+                    <span class="like"> 
+                        <a class="link-reservation" href="/ticket/?MOVIE_CD=20040768&amp;MOVIE_CD_GROUP=20040768">예매</a>
+                    </span>
+                </div>    
+            </li>
+            <!-- 영화 카드 3 -->
+            <li>
+                <div class="box-image">
+                    <strong class="rank">No.3</strong>	
+                    <a href="/movies/detail-view/?midx=89528">
+                        <span class="thumb-image">
+                            <img src="https://img.cgv.co.kr/Movie/Thumbnail/Poster/000089/89528/89528_320.jpg" alt="A MINECRAFT MOVIE 마인크래프트 무비 포스터" onerror="errorImage(this)">
+                            <!-- 영상물 등급 노출 변경 2022.08.24 -->
+                            <i class="cgvIcon etc age12">12</i>
+                            <!-- <span class="ico-grade 12">12</span> -->
+                        </span>
+                        
+                    </a>
+                    <span class="screentype">
+                        
+                            <a class="imax" href="#" title="IMAX 상세정보 바로가기" data-regioncode="07">IMAX</a>
+                        
+                            <a class="forDX" href="#" title="4DX 상세정보 바로가기" data-regioncode="4D14">4DX</a>
+                        
+                            <a class="screenx" href="#" title="SCREENX 상세정보 바로가기" data-regioncode="SCX">SCREENX</a>
+                        
+                    </span>
+                </div>
+                
+                <div class="box-contents">
+                    <a href="/movies/detail-view/?midx=89528">
+                        <strong class="title">A MINECRAFT MOVIE 마인크래프트 무비</strong>
+                    </a>
+
+                    <div class="score">
+                        <strong class="percent">예매율<span>8.3%</span></strong>
+                        <!-- 2020.05.07 개봉전 프리에그 노출, 개봉후 골든에그지수 노출변경 (적용 범위1~ 3위)-->
+                        <div class="egg-gage small">
+                                        <span class="sprite_preegg default"></span>
+                                        <span class="percent">99%</span>
+                                    </div>
+                    </div>
+
+                    <span class="txt-info">
+                        <strong>
+                            2025.04.26 
+                            <span>개봉</span>
+                            <em class="dday">D-9</em>
+                        </strong>
+                    </span>
+                    <span class="like"> 
+                        <a class="link-reservation" href="/ticket/?MOVIE_CD=20040931&amp;MOVIE_CD_GROUP=20040657">예매</a>
+                    </span>
+                </div>    
+            </li>
+
+
+            <li>
+                <div class="box-image">
+                    <strong class="rank">No.4</strong>	
+                    <a href="/movies/detail-view/?midx=89568">
+                        <span class="thumb-image">
+                            <img src="https://img.cgv.co.kr/Movie/Thumbnail/Poster/000089/89568/89568_320.jpg" alt="파과 포스터" onerror="errorImage(this)">
+                            <!-- 영상물 등급 노출 변경 2022.08.24 -->
+                            <i class="cgvIcon etc age15">15</i>
+                            <!-- <span class="ico-grade 15">15</span> -->
+                        </span>
+                    </a>
+                    <span class="screentype">
+                        
+                    </span>
+                </div>
+                <div class="box-contents">
+                    <a href="/movies/detail-view/?midx=89568">
+                        <strong class="title">파과</strong>
+                    </a>
+
+                    <div class="score">
+                        <strong class="percent">예매율<span>8.2%</span></strong>
+                        <!-- 2020.05.07 개봉전 프리에그 노출, 개봉후 골든에그지수 노출변경 (적용 범위4~ 7위)-->
+                        <div class="egg-gage small">
+                                        <span class="sprite_preegg default"></span>
+                                        <span class="percent">99%</span>
+                                    </div>
+                    </div>
+
+                    <span class="txt-info">
+                        <strong>
+                            2025.04.30 
+                            <span>개봉</span>
+                            <em class="dday">D-13</em>
+                        </strong>
+                    </span>
+                    <span class="like"> 
+                        <a class="link-reservation" href="/ticket/?MOVIE_CD=20040877&amp;MOVIE_CD_GROUP=20040877">예매</a>
+                    </span>
+                </div>    
+            </li>
+
+            <li>
+                <div class="box-image">
+                    <strong class="rank">No.5</strong>	
+                    <a href="/movies/detail-view/?midx=89485">
+                        <span class="thumb-image">
+                            <img src="https://img.cgv.co.kr/Movie/Thumbnail/Poster/000089/89485/89485_320.jpg" alt="승부 포스터" onerror="errorImage(this)">
+                            <!-- 영상물 등급 노출 변경 2022.08.24 -->
+                            <i class="cgvIcon etc age12">12</i>
+                            <!-- <span class="ico-grade 12">12</span> -->
+                        </span>
+                    </a>
+                    <span class="screentype">
+                        
+                    </span>
+                </div>
+                <div class="box-contents">
+                    <a href="/movies/detail-view/?midx=89485">
+                        <strong class="title">승부</strong>
+                    </a>
+
+                    <div class="score">
+                        <strong class="percent">예매율<span>3.9%</span></strong>
+                        <!-- 2020.05.07 개봉전 프리에그 노출, 개봉후 골든에그지수 노출변경 (적용 범위4~ 7위)-->
+                        <div class="egg-gage small">
+                                        <span class="egg great"></span>
+                                        <span class="percent">97%</span>
+                                    </div>
+                    </div>
+
+                    <span class="txt-info">
+                        <strong>
+                            2025.03.26 
+                            <span>개봉</span>
+                            
+                        </strong>
+                    </span>
+                    <span class="like"> 
+                        <a class="link-reservation" href="/ticket/?MOVIE_CD=20040491&amp;MOVIE_CD_GROUP=20040491">예매</a>
+                    </span>
+                </div>    
+            </li>
+
+            <li>
+                <div class="box-image">
+                    <strong class="rank">No.6</strong>	
+                    <a href="/movies/detail-view/?midx=89549">
+                        <span class="thumb-image">
+                            <img src="https://img.cgv.co.kr/Movie/Thumbnail/Poster/000089/89549/89549_320.jpg" alt="사유리 포스터" onerror="errorImage(this)">
+                            <!-- 영상물 등급 노출 변경 2022.08.24 -->
+                            <i class="cgvIcon etc age15">15</i>
+                            <!-- <span class="ico-grade 15">15</span> -->
+                        </span>
+                    </a>
+                    <span class="screentype">
+                        
+                    </span>
+                </div>
+                <div class="box-contents">
+                    <a href="/movies/detail-view/?midx=89549">
+                        <strong class="title">사유리</strong>
+                    </a>
+
+                    <div class="score">
+                        <strong class="percent">예매율<span>3.1%</span></strong>
+                        <!-- 2020.05.07 개봉전 프리에그 노출, 개봉후 골든에그지수 노출변경 (적용 범위4~ 7위)-->
+                        <div class="egg-gage small">
+                                        <span class="egg good"></span>
+                                        <span class="percent">80%</span>
+                                    </div>
+                    </div>
+
+                    <span class="txt-info">
+                        <strong>
+                            2025.04.16 
+                            <span>개봉</span>
+                            
+                        </strong>
+                    </span>
+                    <span class="like"> 
+                        <a class="link-reservation" href="/ticket/?MOVIE_CD=20040800&amp;MOVIE_CD_GROUP=20040799">예매</a>
+                    </span>
+                </div>    
+            </li>
+
+            <li>
+                <div class="box-image">
+                    <strong class="rank">No.7</strong>	
+                    <a href="/movies/detail-view/?midx=89450">
+                        <span class="thumb-image">
+                            <img src="https://img.cgv.co.kr/Movie/Thumbnail/Poster/000089/89450/89450_320.jpg" alt="플로우 포스터" onerror="errorImage(this)">
+                            <!-- 영상물 등급 노출 변경 2022.08.24 -->
+                            <i class="cgvIcon etc ageAll">All</i>
+                            <!-- <span class="ico-grade All">All</span> -->
+                        </span>
+                    </a>
+                    <span class="screentype">
+                        
+                            <a class="arthouse" href="#" data-regioncode="MovieCollage">아트하우스</a>
+                        
+                    </span>
+                </div>
+                <div class="box-contents">
+                    <a href="/movies/detail-view/?midx=89450">
+                        <strong class="title">플로우</strong>
+                    </a>
+
+                    <div class="score">
+                        <strong class="percent">예매율<span>2.9%</span></strong>
+                        <!-- 2020.05.07 개봉전 프리에그 노출, 개봉후 골든에그지수 노출변경 (적용 범위4~ 7위)-->
+                        <div class="egg-gage small">
+                                        <span class="egg great"></span>
+                                        <span class="percent">96%</span>
+                                    </div>
+                    </div>
+
+                    <span class="txt-info">
+                        <strong>
+                            2025.03.19 
+                            <span>개봉</span>
+                            
+                        </strong>
+                    </span>
+                    <span class="like"> 
+                        <a class="link-reservation" href="/ticket/?MOVIE_CD=20040314&amp;MOVIE_CD_GROUP=20040313">예매</a>
+                    </span>
+                </div>    
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

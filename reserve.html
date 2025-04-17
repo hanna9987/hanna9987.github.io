@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>영화 예매 사이트</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 10px 20px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .top-bar .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .top-bar .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .top-bar .logo span {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .top-bar .member-menu {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+
+        .top-bar .member-menu li {
+            display: flex;
+            align-items: center;
+        }
+
+        .top-bar .member-menu li a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-size: 14px;
+        }
+
+        .top-bar .member-menu img {
+            height: 18px;
+            margin-right: 5px;
+        }
+
+        nav {
+            background-color: #34495e;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 14px 20px;
+            display: block;
+            transition: background 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #1abc9c;
+        }
+
+        section {
+            padding: 40px;
+        }
+
+        #info, #reserve {
+            background-color: #ecf0f1;
+            margin: 20px auto;
+            max-width: 800px;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="time"],
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            color: white;
+            background-color: #e50914;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #c40812;
+        }
+
+        .confirmation {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+
+  <header>
+    <h1>🎬 영화 예매 사이트</h1>
+  </header>
+
+  <div class="top-bar">
+    <div class="logo">
+      <a href="/"><img src="https://cdn-icons-png.flaticon.com/512/744/744922.png" alt="로고" /></a>
+      <a href="index.html" style="text-decoration: none; color: #2c3e50; font-size: 20px; font-weight: bold;">DEEP DIVE CINEMA</a>
+    </div>
+    <ul class="member-menu">
+      <li><a href="#"><img src="https://img.cgv.co.kr/R2014/images/common/ico/loginPassword.png" alt="">로그인</a></li>
+      <li><a href="#"><img src="https://img.cgv.co.kr/R2014/images/common/ico/loginJoin.png" alt="">회원가입</a></li>
+      <li><a href="#"><img src="https://img.cgv.co.kr/R2014/images/common/ico/loginMember.png" alt="">MY</a></li>
+      <li><a href="#"><img src="https://img.cgv.co.kr/R2014/images/common/ico/loginCustomer.png" alt="">고객센터</a></li>
+    </ul>
+  </div>
+
+  <nav>
+    <a href="info.html">영화</a>
+    <a href="#">극장</a>
+    <a href="reserve.html">예매</a>
+    <a href="#">스토어</a>
+    <a href="#">이벤트</a>
+    <a href="#">혜택</a>
+  </nav>
+
+  <section>
+    <div id="info">
+      <h2>영화 예매</h2>
+      <div class="container">
+        <form id="reservationForm">
+            <div class="form-group">
+                <label for="movieName">영화 제목</label>
+                <input type="text" id="movieName" placeholder="영화 제목을 입력하세요" required>
+            </div>
+
+            <div class="form-group">
+                <label for="movieDate">예매 날짜</label>
+                <input type="date" id="movieDate" required>
+            </div>
+
+            <div class="form-group">
+                <label for="movieTime">예매 시간</label>
+                <input type="time" id="movieTime" required>
+            </div>
+
+            <div class="form-group">
+                <label for="ticketCount">티켓 수</label>
+                <input type="number" id="ticketCount" placeholder="예매할 티켓 수" min="1" required>
+            </div>
+
+            <button type="submit">예약하기</button>
+        </form>
+
+        <div class="confirmation" id="confirmationMessage">
+            <p>예약이 완료되었습니다!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const form = document.getElementById('reservationForm');
+    const confirmationMessage = document.getElementById('confirmationMessage');
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // 입력값을 받아와서 처리하는 부분
+        const movieName = document.getElementById('movieName').value;
+        const movieDate = document.getElementById('movieDate').value;
+        const movieTime = document.getElementById('movieTime').value;
+        const ticketCount = document.getElementById('ticketCount').value;
+
+        // 예약 확인 메시지 표시
+        confirmationMessage.style.display = 'block';
+
+        // 예약 폼 초기화
+        form.reset();
+    });
+  </script>
+
+</body>
+</html>

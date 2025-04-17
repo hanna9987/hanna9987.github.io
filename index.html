@@ -1,138 +1,699 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>영화 사이트</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Arial', sans-serif;
-      background-color: #f4f4f4;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FILMORA - 최고의 영화 스트리밍 서비스</title>
+    <style>
+        :root {
+            --primary: #ff6b6b;
+            --secondary: #4d96ff;
+            --dark: #2c3e50;
+            --light: #212529;
+            --gray: #6c757d;
+            --background: #ffffff;
+            --card-bg: #f0f0f0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: var(--background);
+            color: var(--light);
+        }
+        
+        /* 네비게이션 바 */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+        }
+        
+        .logo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+}
 
-    header {
-      background-color: #2c3e50;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
+.logo-icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary);
+    border-radius: 16px;
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 28px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    position: relative;
+    transition: transform 0.25s ease;
+}
 
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: #ffffff;
-      padding: 10px 20px;
-      border-bottom: 1px solid #ccc;
-    }
+.logo-icon:hover {
+    transform: scale(1.08);
+}
 
-    .top-bar .logo {
-      display: flex;
-      align-items: center;
-    }
+.logo-icon::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -8px;
+    right: -8px;
+    height: 2px;
+    background-color: var(--primary);
+    opacity: 0.1;
+    transform: translateY(-50%);
+    z-index: -1;
+}
 
-    .top-bar .logo img {
-      height: 40px;
-      margin-right: 10px;
-    }
+.logo span {
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--primary);
+    letter-spacing: 1.5px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    transition: color 0.3s ease;
+}
 
-    .top-bar .logo span {
-      font-size: 20px;
-      font-weight: bold;
-      color: #2c3e50;
-    }
-
-    .top-bar .member-menu {
-      list-style: none;
-      display: flex;
-      gap: 15px;
-    }
-
-    .top-bar .member-menu li {
-      display: flex;
-      align-items: center;
-    }
-
-    .top-bar .member-menu li a {
-      text-decoration: none;
-      color: #2c3e50;
-      font-size: 14px;
-    }
-
-    .top-bar .member-menu img {
-      height: 18px;
-      margin-right: 5px;
-    }
-
-    nav {
-      background-color: #34495e;
-      display: flex;
-      justify-content: center;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      padding: 14px 20px;
-      display: block;
-      transition: background 0.3s;
-    }
-
-    nav a:hover {
-      background-color: #1abc9c;
-    }
-
-    section {
-      padding: 40px;
-    }
-
-    #info, #reserve {
-      background-color: #ecf0f1;
-      margin: 20px auto;
-      max-width: 800px;
-      border-radius: 10px;
-      padding: 20px;
-    }
-  </style>
+.logo:hover span {
+    color: #1d4ed8;
+}
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin: 0 15px;
+        }
+        
+        .nav-links a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-controls {
+            display: flex;
+            align-items: center;
+        }
+        
+        .search-container {
+            margin-right: 20px;
+            position: relative;
+        }
+        
+        .search-container input {
+            padding: 10px 15px;
+            background-color: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+            color: var(--dark);
+            width: 200px;
+            transition: width 0.3s;
+        }
+        
+        .search-container input:focus {
+            outline: none;
+            width: 250px;
+            border-color: var(--secondary);
+        }
+        
+        .profile-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: var(--secondary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+        }
+        
+        /* 메인 배너 */
+        .hero {
+            height: 80vh;
+            background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)),
+                url('/api/placeholder/1600/900') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 50px;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            color: var(--gray);
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #ff5252;
+            transform: translateY(-3px);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #3b82f6;
+            transform: translateY(-3px);
+        }
+        
+        /* 영화 섹션 */
+        .section-title {
+            font-size: 26px;
+            margin: 40px 50px 20px;
+            color: var(--dark);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        .movie-row {
+            display: flex;
+            overflow-x: auto;
+            padding: 20px 50px;
+            scroll-behavior: smooth;
+        }
+        
+        .movie-row::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .movie-row::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        .movie-row::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 10px;
+        }
+        
+        .movie-card {
+            flex: 0 0 auto;
+            width: 220px;
+            margin-right: 20px;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .movie-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .movie-card img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+        }
+        
+        .movie-info {
+            padding: 15px;
+        }
+        
+        .movie-card h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        
+        .movie-card .meta {
+            color: var(--gray);
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        /* 영화 상세 페이지 */
+        #movie-detail {
+            display: none;
+            padding-top: 80px;
+        }
+        
+        .movie-detail-hero {
+            height: 60vh;
+            background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)),
+                url('/api/placeholder/1600/900') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            padding: 0 50px;
+        }
+        
+        .movie-info-detail {
+            max-width: 800px;
+        }
+        
+        .movie-title {
+            font-size: 42px;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .movie-meta-detail {
+            display: flex;
+            margin-bottom: 20px;
+            color: var(--gray);
+        }
+        
+        .movie-meta-detail span {
+            margin-right: 20px;
+        }
+        
+        .movie-description {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: var(--gray);
+        }
+        
+        /* 카테고리 페이지 */
+        #category-page {
+            display: none;
+            padding: 100px 50px 50px;
+        }
+        
+        .category-header {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: var(--dark);
+        }
+        
+        .filter-options {
+            display: flex;
+            margin-bottom: 30px;
+        }
+        
+        .filter-options select {
+            padding: 10px 20px;
+            margin-right: 15px;
+            background-color: white;
+            color: var(--dark);
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        
+        .movie-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 25px;
+        }
+        
+        .grid-item {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .grid-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .grid-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .grid-item h3 {
+            padding: 15px;
+            font-size: 16px;
+        }
+        
+        /* 푸터 */
+        footer {
+            background-color: #f8f9fa;
+            padding: 50px;
+            margin-top: 50px;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-column {
+            flex: 1;
+        }
+        
+        .footer-column h3 {
+            color: var(--dark);
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column a:hover {
+            color: var(--primary);
+        }
+        
+        .copyright {
+            text-align: center;
+            color: var(--gray);
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>🎬 영화 메인 사이트</h1>
-  </header>
+    <!-- 네비게이션 바 -->
+    <nav>
+        <a href="index.html" style="text-decoration: none; color: inherit;">
+            <div class="logo" onclick="showPage('main-page')">
+                <div class="logo-icon">F</div>
+                <span>FILMORA</span>
+            </div>
+        </a>
+        
+        <ul class="nav-links">
+            <li><a href="info.html" onclick="showPage('main-page')">영화</a></li>
+            <li><a href="#" onclick="showPage('category-page')">극장</a></li>
+            <li><a href="reserve.html">예매</a></li>
+            <li><a href="#">이벤트
+            </a></li>
+        </ul>
+        <div class="nav-controls">
+            <div class="search-container">
+                <input type="text" placeholder="영화 검색...">
+            </div>
+            <div class="profile-icon">U</div>
+        </div>
+    </nav>
 
-  <div class="top-bar">
-    <div class="logo">
-      <a href="index.html"><img src="https://cdn-icons-png.flaticon.com/512/744/744922.png" alt="로고" /></a>
-      <a href="index.html" style="text-decoration: none; color: #2c3e50; font-size: 20px; font-weight: bold;">DEEP DIVE CINEMA</a>
+    <!-- 메인 페이지 -->
+    <div id="main-page">
+        <!-- 메인 배너 -->
+        <div class="hero">
+            <div class="hero-content">
+                <h1>세상의 모든 영화를 한 곳에서</h1>
+                <p>FILMORA와 함께 최고의 영화 컬렉션을 경험하세요. 언제 어디서나 고품질 스트리밍으로 즐길 수 있습니다.</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary">지금 시작하기</button>
+                    <button class="btn btn-secondary">베스트 영화 보기</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 영화 섹션 -->
+        <h2 class="section-title">인기 영화</h2>
+        <div class="movie-row">
+            <div class="movie-card" onclick="showPage('movie-detail')">
+                <img src="/api/placeholder/220/140" alt="인셉션">
+                <div class="movie-info">
+                    <h3>인셉션</h3>
+                    <div class="meta">
+                        <span>2010</span>
+                        <span>⭐ 8.8</span>
+                    </div>
+                </div>
+            </div>
+            <div class="movie-card">
+                <img src="/api/placeholder/220/140" alt="조커">
+                <div class="movie-info">
+                    <h3>조커</h3>
+                    <div class="meta">
+                        <span>2019</span>
+                        <span>⭐ 8.4</span>
+                    </div>
+                </div>
+            </div>
+            <div class="movie-card">
+                <img src="/api/placeholder/220/140" alt="기생충">
+                <div class="movie-info">
+                    <h3>기생충</h3>
+                    <div class="meta">
+                        <span>2019</span>
+                        <span>⭐ 8.6</span>
+                    </div>
+                </div>
+            </div>
+            <div class="movie-card">
+                <img src="/api/placeholder/220/140" alt="다크 나이트">
+                <div class="movie-info">
+                    <h3>다크 나이트</h3>
+                    <div class="meta">
+                        <span>2008</span>
+                        <span>⭐ 9.0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">한국 영화 인기작</h2>
+        <div class="movie-row">
+            <div class="movie-card">
+                <img src="/api/placeholder/220/140" alt="기생충">
+                <div class="movie-info">
+                    <h3>기생충</h3>
+                    <div class="meta">
+                        <span>2019</span>
+                        <span>⭐ 8.6</span>
+                    </div>
+                </div>
+            </div>
+            <div class="movie-card">
+                <img src="/api/placeholder/220/140" alt="올드보이">
+                <div class="movie-info">
+                    <h3>올드보이</h3>
+                    <div class="meta">
+                        <span>2003</span>
+                        <span>⭐ 8.4</span>
+                    </div>
+                </div>
+            </div>
+            <div class="movie-card">
+                <img src="/api/placeholder/220/140" alt="부산행">
+                <div class="movie-info">
+                    <h3>부산행</h3>
+                    <div class="meta">
+                        <span>2016</span>
+                        <span>⭐ 7.6</span>
+                    </div>
+                </div>
+            </div>
+            <div class="movie-card">
+                <img src="/api/placeholder/220/140" alt="아가씨">
+                <div class="movie-info">
+                    <h3>아가씨</h3>
+                    <div class="meta">
+                        <span>2016</span>
+                        <span>⭐ 8.1</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <ul class="member-menu">
-      <li><a href="#"><img src="https://img.cgv.co.kr/R2014/images/common/ico/loginPassword.png" alt="">로그인</a></li>
-      <li><a href="#"><img src="https://img.cgv.co.kr/R2014/images/common/ico/loginJoin.png" alt="">회원가입</a></li>
-      <li><a href="#"><img src="https://img.cgv.co.kr/R2014/images/common/ico/loginMember.png" alt="">MY</a></li>
-      <li><a href="#"><img src="https://img.cgv.co.kr/R2014/images/common/ico/loginCustomer.png" alt="">고객센터</a></li>
-    </ul>
-  </div>
 
-  <nav>
-    <a href="info.html">영화</a>
-    <a href="#">극장</a>
-    <a href="reserve.html">예매</a>
-    <a href="#">스토어</a>
-    <a href="#">이벤트</a>
-    <a href="#">혜택</a>
-  </nav>
-
-  <section>
-    <div id="info">
-      <h2>영화 정보</h2>
-      <p>여기에 영화 정보가 표시됩니다.</p>
+    <!-- 영화 상세 페이지 -->
+    <div id="movie-detail">
+        <div class="movie-detail-hero">
+            <div class="movie-info-detail">
+                <h1 class="movie-title">인셉션</h1>
+                <div class="movie-meta-detail">
+                    <span>2010</span>
+                    <span>148분</span>
+                    <span>⭐ 8.8</span>
+                    <span>액션, SF, 모험</span>
+                </div>
+                <p class="movie-description">
+                    돔 코브는 특수한 기술과 첨단 장비를 이용하여 타인의 꿈에 침투해 그 사람의 생각을 훔치는 도둑입니다. 그는 타인의 꿈과 잠재의식에 침투할 수 있는 특수한 능력으로 인해 산업스파이 업계에서는 최고로 통합니다.
+                </p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary">▶ 재생</button>
+                    <button class="btn btn-secondary">+ 찜하기</button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div id="reserve">
-      <h2>예매 정보</h2>
-      <p>여기에 예매 정보가 표시됩니다.</p>
+    <!-- 카테고리 페이지 -->
+    <div id="category-page">
+        <h1 class="category-header">영화 탐색</h1>
+        
+        <div class="filter-options">
+            <select>
+                <option>장르</option>
+                <option>액션</option>
+                <option>코미디</option>
+                <option>드라마</option>
+                <option>SF</option>
+            </select>
+            <select>
+                <option>정렬</option>
+                <option>최신순</option>
+                <option>평점순</option>
+            </select>
+            <select>
+                <option>연도</option>
+                <option>2020년대</option>
+                <option>2010년대</option>
+                <option>2000년대</option>
+            </select>
+        </div>
+        
+        <div class="movie-grid">
+            <div class="grid-item">
+                <img src="/api/placeholder/200/250" alt="인셉션">
+                <h3>인셉션</h3>
+            </div>
+            <div class="grid-item">
+                <img src="/api/placeholder/200/250" alt="기생충">
+                <h3>기생충</h3>
+            </div>
+            <div class="grid-item">
+                <img src="/api/placeholder/200/250" alt="조커">
+                <h3>조커</h3>
+            </div>
+            <div class="grid-item">
+                <img src="/api/placeholder/200/250" alt="다크 나이트">
+                <h3>다크 나이트</h3>
+            </div>
+            <div class="grid-item">
+                <img src="/api/placeholder/200/250" alt="인터스텔라">
+                <h3>인터스텔라</h3>
+            </div>
+            <div class="grid-item">
+                <img src="/api/placeholder/200/250" alt="매트릭스">
+                <h3>매트릭스</h3>
+            </div>
+        </div>
     </div>
-  </section>
+
+    <!-- 푸터 -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>FILMORA</h3>
+                <ul>
+                    <li><a href="#">회사 소개</a></li>
+                    <li><a href="#">채용 정보</a></li>
+                    <li><a href="#">이용 약관</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>고객 센터</h3>
+                <ul>
+                    <li><a href="#">자주 묻는 질문</a></li>
+                    <li><a href="#">계정 관리</a></li>
+                    <li><a href="#">고객 지원</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>법적 고지</h3>
+                <ul>
+                    <li><a href="#">개인정보 처리방침</a></li>
+                    <li><a href="#">쿠키 정책</a></li>
+                    <li><a href="#">저작권 안내</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2025 FILMORA. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        function showPage(pageId) {
+            // 모든 페이지 숨기기
+            document.getElementById('main-page').style.display = 'none';
+            document.getElementById('movie-detail').style.display = 'none';
+            document.getElementById('category-page').style.display = 'none';
+            
+            // 선택한 페이지만 보이기
+            document.getElementById(pageId).style.display = 'block';
+        }
+    </script>
 </body>
 </html>
